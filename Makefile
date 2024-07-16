@@ -1,15 +1,22 @@
+CFLAGS=-g -fsanitize=address
+FLAGS=-Wall -Wextra -Werror -O2 -std=c99 -pedantic
 CC=cc
-FLAGS=-Wall
+PORT=8080
 
-all: main
+MAIN=./src/main.c
 
-main:
-	$(CC) ./src/main.c ./src/utils.c -o ./bin/main $(FLAGS)
+all: build
 
-run: main
+run: debug
 	@echo "the app is started"
-	@./bin/main
+	@./bin/main.out $(PORT)
+
+debug:
+	$(CC) $(CFLAGS) $(MAIN) ./src/utils.c -o ./bin/main.out $(FLAGS)
+
+build:
+	$(CC) $(MAIN) ./src/utils.c -o ./bin/release.out
 
 clean:
-	@rm ./bin/*
+	@rm -rf ./bin/*
 	@echo "it is clean now"
