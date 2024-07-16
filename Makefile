@@ -4,6 +4,7 @@ CC=cc
 PORT=8080
 
 MAIN=./src/main.c
+FILES=./src/utils.c ./src/file/files.c ./src/client/client.c
 
 all: build
 
@@ -12,10 +13,10 @@ run: debug
 	@./bin/main.out $(PORT)
 
 debug:
-	$(CC) $(CFLAGS) $(MAIN) ./src/utils.c -o ./bin/main.out $(FLAGS)
+	$(CC) $(CFLAGS) $(MAIN) $(FILES) -o ./bin/main.out $(FLAGS)
 
 build:
-	$(CC) $(MAIN) ./src/utils.c -o ./bin/release.out
+	$(CC) $(MAIN) $(FILES) -o ./bin/release.out
 
 clean:
 	@rm -rf ./bin/*
